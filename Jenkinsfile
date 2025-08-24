@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the branch that triggered the build
-                git branch: "${main}", 
+                git branch: 'main', 
                     url: 'https://github.com/Thandupsherpa/spring-petclinic.git'
             }
         }
