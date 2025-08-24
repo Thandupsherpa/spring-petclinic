@@ -2,14 +2,14 @@ pipeline {
     agent any   // Runs on any available Jenkins agent
 
     tools {
-        maven 'M3'      // Name must match Maven installation in Jenkins (Manage Jenkins → Tools)
-        jdk 'JDK17'     // Name must match JDK installation in Jenkins
+        maven 'M3'      // Must match name in Manage Jenkins → Tools
+        jdk 'JDK17'     // Must match name in Manage Jenkins → Tools
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: ' feature/add-welcome-message',
+                git branch: 'feature/add-welcome-message',
                     url: 'https://github.com/Thandupsherpa/spring-petclinic.git'
             }
         }
@@ -30,13 +30,6 @@ pipeline {
                 }
             }
         }
-
-        // 🚀 Optional Deployment Stage
-        // stage('Deploy') {
-        //     steps {
-        //         echo 'Deploying application...'
-        //     }
-        // }
     }
 
     post {
