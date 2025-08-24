@@ -1,48 +1,47 @@
 pipeline {
-    agent any   // Can refine with label: e.g., agent { label 'maven-node' }
-    
+    agent any   // Runs on any available Jenkins agent
+
     tools {
-        maven 'M3'      // Use the Maven installation configured in Jenkins (Manage Jenkins > Global Tool Config)
-        jdk 'JDK17'     // Use the JDK installation configured in Jenkins
+        maven 'M3'      // Name must match Maven installation in Jenkins (Manage Jenkins → Tools)
+        jdk 'JDK17'     // Name must match JDK installation in Jenkins
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout from your fork (replace with your username)
-                git branch: "${main}", 
-                    url: "https://github.com/Thandupsherpa/spring-petclinic.git"
+                git branch: 'main',
+                    url: 'https://github.com/Thandupsherpa/spring-petclinic.git'
             }
         }
 
         stage('Build & Package') {
             steps {
-                // Compile and package into a JAR
                 sh 'mvn clean compile package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                // Run tests
                 sh 'mvn test'
             }
             post {
                 always {
-                    // Publish JUnit test results even if stage fails
                     junit 'target/surefire-reports/*.xml'
                 }
             }
         }
 
-        // 🚀 You could add a Deploy stage here later
-        // stage('Deploy to Staging') { ... }
+        // 🚀 Optional Deployment Stage
+        // stage('Deploy') {
+        //     steps {
+        //         echo 'Deploying application...'
+        //     }
+        // }
     }
 
     post {
         always {
-            // Clean up workspace after every run
-            cleanWs()
+            cleanWs()   // Clean up workspace after every run
         }
     }
 }
