@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: ' feature/add-welcome-message',
                     url: 'https://github.com/Thandupsherpa/spring-petclinic.git'
             }
         }
